@@ -249,18 +249,19 @@ class Camera(object):
         objcounter = 0
         # Draw each point that is within bounds.
         for obj in self.objectsInWorld:
-            # print(type(obj))
             if (type(obj) is Point or type(obj) is Star):
-                # print("Point detected by camera")
                 if (obj.num[0] > self.minX and obj.num[0] < self.maxX
                         and obj.num[1] > self.minY
                         and obj.num[1] < self.maxY
                         and obj.num[2] > self.minZ
                         and obj.num[2] < self.maxZ):
                     objcounter += 1
+                    # Check what colour the point should be,
+                    # given the light sources present in the scene.
                     colour = self.checkPointColour(obj)
                     # Don't bother drawing invisible points.
                     if colour != [0, 0, 0]:
+                        # Draw the point.
                         obj.drawPoint(colour)
             elif (type(obj) is LineSegment
                   or type(obj) is Circle):
@@ -280,10 +281,9 @@ class Camera(object):
                 new_lines = obj.returnLines()
                 self.objectsInWorld += new_lines
 
-        # How many objects are we drawing?
-        print(objcounter)
-
     def checkPointColour(self, point):
+        # Takes a point and decides what colour it should be,
+        # Based on that point's proximity to each light source in the scene.
         red = 0
         green = 0
         blue = 0
@@ -295,28 +295,27 @@ class Camera(object):
             d_v = [light.num[0] - point.num[0],
                    light.num[1] - point.num[1],
                    light.num[2] - point.num[2]]
+            # Pythagoras's theorem.
             distance = math.sqrt(d_v[0]**2
                                  + d_v[1]**2
                                  + d_v[2]**2)
-            # Calculate illumination percentage.
+
+            # Check if light illuminates the point at all.
             if distance <= light.radius:
+                # Then calculate the illumination percentage and apply it.
                 percentage = distance / light.radius
-                print(percentage)
                 red += (light.colour[0] * percentage)
                 green += (light.colour[1] * percentage)
                 blue += (light.colour[2] * percentage)
-                if red > 255:
-                    red = 255
-                if blue > 255:
-                    blue = 255
-                if green > 255:
-                    green = 255
+
         colour = red, green, blue
-        print("Number of lights: ", light_num)
         return colour
 
 
 class Lighting(object):
+    """This class represents a light source.
+    Place in the scene and it will illuminate any points within its
+    radius, based on the point's distance from the source."""
 
     def __init__(self, num, colour, radius):
         self.num = num
@@ -452,13 +451,11 @@ class SymmetricalPolygon(Polygon):
         tempVector = Vector((0, self.radius, 0), self.renderer)
         orient = self.centre.addVectorToPoint(Vector((0, 0, 10),
                                                      self.renderer))
-        print(orient.num)
         angle = 360 / self.vertices
 
         for vertex in range(self.vertices):
             point_array.append(self.centre.addVectorToPoint(tempVector))
             tempVector = tempVector.rotateVectorXY(angle)
-            print(point_array[vertex].num)
 
         return point_array
 

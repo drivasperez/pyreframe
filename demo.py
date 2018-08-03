@@ -61,6 +61,7 @@ def add_content():
 
 def mainloop(renderer):
     # Main "game" loop.
+    print("Press a to scale scene down, s to scale scene up, and r to rotate.")
     add_content()
 
     while 1:
@@ -82,14 +83,6 @@ def mainloop(renderer):
                                  Point((0, 0, 0), renderer),
                                  Point((1000, 1000, 1000), renderer),
                                  renderer)
-                elif event.key == pygame.K_1:
-                    renderer.colour = 255, 255, 255
-                elif event.key == pygame.K_2:
-                    renderer.colour = 255, 0, 0
-                elif event.key == pygame.K_3:
-                    renderer.colour = 0, 255, 0
-                elif event.key == pygame.K_4:
-                    renderer.colour = 0, 0, 255
 
 
 mainloop(renderer)
