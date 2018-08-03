@@ -449,8 +449,6 @@ class SymmetricalPolygon(Polygon):
     def findPoints(self):
         point_array = []
         tempVector = Vector((0, self.radius, 0), self.renderer)
-        orient = self.centre.addVectorToPoint(Vector((0, 0, 10),
-                                                     self.renderer))
         angle = 360 / self.vertices
 
         for vertex in range(self.vertices):
