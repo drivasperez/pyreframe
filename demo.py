@@ -1,5 +1,5 @@
 # Pyreframe, a rudimentary 3D engine made in Python for no real reason.
-# By Daniel Rivas, working off pseudocode from various tutorials.
+# By Daniel Rivas working from pseudocode from various tutorials.
 
 import sys
 import pygame
