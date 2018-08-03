@@ -297,7 +297,7 @@ class Camera(object):
                    light.num[2] - point.num[2]]
             distance = math.sqrt(d_v[0]**2
                                  + d_v[1]**2
-                                  + d_v[2]**2)
+                                 + d_v[2]**2)
             # Calculate illumination percentage.
             if distance <= light.radius:
                 percentage = distance / light.radius
@@ -322,7 +322,6 @@ class Lighting(object):
         self.num = num
         self.colour = colour
         self.radius = radius
-
 
 
 class LineSegment(object):

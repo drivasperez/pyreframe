@@ -8,7 +8,7 @@ from random import randrange
 from engine import (Point, Star, Vector, Camera, LineSegment,
                     Polygon, SymmetricalPolygon, Circle, Renderer, Lighting)
 
-from engine import (scale_space, rotate_space, draw_line, draw_line,
+from engine import (scale_space, rotate_space, draw_line,
                     draw_polygon, draw_sympolygon, draw_circle)
 
 # Screen dimensions.
@@ -47,6 +47,7 @@ def draw_pointfield(renderer):
                    randrange(0, renderer.screenHeight),
                    randrange(0, renderer.desiredDepth)), renderer))
     renderer.camera.drawScene()
+
 
 def add_content():
 
