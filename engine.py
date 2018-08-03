@@ -55,8 +55,8 @@ class Point(object):
 
 
 class Star(Point):
-    # Like the Point() class, but rendered using pygame circles for depth.
-    # To make a nice visual effect. Seems expensive.
+    # Like the Point() class, but rendered using circles to indicate depth.
+    # Makes for a nice visual effect.
     def drawPoint(self, colour):
         # Draw using main rendering technique.
         self.renderer.render_star(self.num, colour)
