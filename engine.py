@@ -569,7 +569,7 @@ class Renderer(object):
 
     def render_screen(self):
         pygame.display.flip()
-        self.screen.fill(self.black)
+        self.screen.fill(self.colour)
 
 
 def scale_space(amount, renderer):
