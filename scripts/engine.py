@@ -1,12 +1,11 @@
 # Pyreframe, a rudimentary 3D engine made in Python for no real reason.
-# By Daniel Rivas, working from various tutorials.
+# By Daniel Rivas.
 
 import math
 import pygame
 
 
 class Point(object):
-
     def __init__(self, coords, renderer):
         # Define point's XYZ coordinates as three-tuple.
         self.num = coords
@@ -63,7 +62,6 @@ class Star(Point):
 
 
 class Vector(object):
-
     def __init__(self, coords, renderer):
         # Define this vector's XYZ position with a three-tuple.
         self.num = (coords)
@@ -101,17 +99,14 @@ class Vector(object):
         transform3 = (0, 0, 1)
         # Transform.
         num1, num2, num3 = self.num
-        out1 = ((num1*transform1[0])
-                + (num2*transform1[1])
-                + (num3*transform1[2]))
+        out1 = ((num1 * transform1[0]) + (num2 * transform1[1]) +
+                (num3 * transform1[2]))
 
-        out2 = ((num1*transform2[0])
-                + (num2*transform2[1])
-                + (num3*transform2[2]))
+        out2 = ((num1 * transform2[0]) + (num2 * transform2[1]) +
+                (num3 * transform2[2]))
 
-        out3 = ((num1*transform3[0])
-                + (num2*transform3[1])
-                + (num3*transform3[2]))
+        out3 = ((num1 * transform3[0]) + (num2 * transform3[1]) +
+                (num3 * transform3[2]))
 
         return Vector((out1, out2, out3), self.renderer)
 
@@ -125,17 +120,14 @@ class Vector(object):
         transform3 = (-math.sin(rad), 0, math.cos(rad))
         # Transform
         num1, num2, num3 = self.num
-        out1 = ((num1*transform1[0])
-                + (num2*transform1[1])
-                + (num3*transform1[2]))
+        out1 = ((num1 * transform1[0]) + (num2 * transform1[1]) +
+                (num3 * transform1[2]))
 
-        out2 = ((num1*transform2[0])
-                + (num2*transform2[1])
-                + (num3*transform2[2]))
+        out2 = ((num1 * transform2[0]) + (num2 * transform2[1]) +
+                (num3 * transform2[2]))
 
-        out3 = ((num1*transform3[0])
-                + (num2*transform3[1])
-                + (num3*transform3[2]))
+        out3 = ((num1 * transform3[0]) + (num2 * transform3[1]) +
+                (num3 * transform3[2]))
 
         return Vector((out1, out2, out3), self.renderer)
 
@@ -149,34 +141,27 @@ class Vector(object):
         transform3 = (0, math.sin(rad), math.cos(rad))
         # Transform
         num1, num2, num3 = self.num
-        out1 = ((num1*transform1[0])
-                + (num2*transform1[1])
-                + (num3*transform1[2]))
+        out1 = ((num1 * transform1[0]) + (num2 * transform1[1]) +
+                (num3 * transform1[2]))
 
-        out2 = ((num1*transform2[0])
-                + (num2*transform2[1])
-                + (num3*transform2[2]))
+        out2 = ((num1 * transform2[0]) + (num2 * transform2[1]) +
+                (num3 * transform2[2]))
 
-        out3 = ((num1*transform3[0])
-                + (num2*transform3[1])
-                + (num3*transform3[2]))
+        out3 = ((num1 * transform3[0]) + (num2 * transform3[1]) +
+                (num3 * transform3[2]))
 
         return Vector((out1, out2, out3), self.renderer)
 
     def rotateVectorByAxis(self, p1, p2, theta):
         # Rotates a vector around an arbitrary axis.
         # Translate the space's origin to the axis's origin.
-        p = (self.num[0] - p1.num[0],
-             self.num[1] - p1.num[1],
-             self.num[2] - p1.num[2]
-             )
+        p = (self.num[0] - p1.num[0], self.num[1] - p1.num[1],
+             self.num[2] - p1.num[2])
         # Initialise point q, which we will rotate.
         q = Point((0, 0, 0), self.renderer)
         # Vector matrix N describes the axis we rotate around.
-        N = (p2.num[0] - p1.num[0],
-             p2.num[1] - p1.num[1],
-             p2.num[2] - p1.num[2]
-             )
+        N = (p2.num[0] - p1.num[0], p2.num[1] - p1.num[1],
+             p2.num[2] - p1.num[2])
         # Scalar value Nm is the length of vector N.
         Nm = math.sqrt(N[0]**2 + N[1]**2 + N[2]**2)
         # Unit vector n.
@@ -191,27 +176,26 @@ class Vector(object):
         Z = n.num[2]
 
         # Rotation matrix.
-        d11 = t*X**2 + c
-        d12 = t*X*Y - s*Z
-        d13 = t*X*Z + s*Y
-        d21 = t*X*Y + s*Z
-        d22 = t*Y**2 + c
-        d23 = t*Y*Z - s*X
-        d31 = t*X*Z - s*Y
-        d32 = t*Y*Z + s*X
-        d33 = t*Z**2 + c
+        d11 = t * X**2 + c
+        d12 = t * X * Y - s * Z
+        d13 = t * X * Z + s * Y
+        d21 = t * X * Y + s * Z
+        d22 = t * Y**2 + c
+        d23 = t * Y * Z - s * X
+        d31 = t * X * Z - s * Y
+        d32 = t * Y * Z + s * X
+        d33 = t * Z**2 + c
 
         # Multiply position matrix p by rotation matrix M,
         # and set q's coordinates to the result.
-        q.setPointToPoint(Point((d11 * p[0] + d12 * p[1] + d13 * p[2],
-                                 d21 * p[0] + d22 * p[1] + d23 * p[2],
-                                 d31 * p[0] + d32 * p[1] + d33 * p[2]
-                                 ), self.renderer))
+        q.setPointToPoint(
+            Point((d11 * p[0] + d12 * p[1] + d13 * p[2],
+                   d21 * p[0] + d22 * p[1] + d23 * p[2],
+                   d31 * p[0] + d32 * p[1] + d33 * p[2]), self.renderer))
         # Translate axis and rotated point back to original location.
-        q.setPointToPoint(Point((q.num[0] + p1.num[0],
-                                 q.num[1] + p1.num[1],
-                                 q.num[2] + p1.num[2]
-                                 ), self.renderer))
+        q.setPointToPoint(
+            Point((q.num[0] + p1.num[0], q.num[1] + p1.num[1],
+                   q.num[2] + p1.num[2]), self.renderer))
         return q
 
     def scaleVector(self, scalePoint, scale):
@@ -226,13 +210,11 @@ class Vector(object):
         p1 *= scale[1]
         p2 *= scale[2]
         # Move space back again.
-        return Vector((p0 + scalePoint.num[0],
-                       p1 + scalePoint.num[1],
+        return Vector((p0 + scalePoint.num[0], p1 + scalePoint.num[1],
                        p2 + scalePoint.num[2]), self.renderer)
 
 
 class Camera(object):
-
     def __init__(self, bounds, lights):
         # Define minimum and maximum bounds.
         # Bounds should be a tuple containing three two-tuples.
@@ -251,10 +233,8 @@ class Camera(object):
         for obj in self.objectsInWorld:
             if (type(obj) is Point or type(obj) is Star):
                 if (obj.num[0] > self.minX and obj.num[0] < self.maxX
-                        and obj.num[1] > self.minY
-                        and obj.num[1] < self.maxY
-                        and obj.num[2] > self.minZ
-                        and obj.num[2] < self.maxZ):
+                        and obj.num[1] > self.minY and obj.num[1] < self.maxY
+                        and obj.num[2] > self.minZ and obj.num[2] < self.maxZ):
                     objcounter += 1
                     # Check what colour the point should be,
                     # given the light sources present in the scene.
@@ -263,8 +243,7 @@ class Camera(object):
                     if colour != [0, 0, 0]:
                         # Draw the point.
                         obj.drawPoint(colour)
-            elif (type(obj) is LineSegment
-                  or type(obj) is Circle):
+            elif (type(obj) is LineSegment or type(obj) is Circle):
 
                 segment_array = obj.returnPoints()
                 for point in segment_array:
@@ -275,8 +254,7 @@ class Camera(object):
                             and point.num[2] < self.maxZ):
                         colour = self.checkPointColour(point)
                         point.drawPoint(colour)
-            elif (type(obj) is Polygon
-                  or type(obj) is SymmetricalPolygon):
+            elif (type(obj) is Polygon or type(obj) is SymmetricalPolygon):
 
                 new_lines = obj.returnLines()
                 self.objectsInWorld += new_lines
@@ -292,13 +270,12 @@ class Camera(object):
             light_num += 1
 
             # Calculate distance between point and the light
-            d_v = [light.num[0] - point.num[0],
-                   light.num[1] - point.num[1],
-                   light.num[2] - point.num[2]]
+            d_v = [
+                light.num[0] - point.num[0], light.num[1] - point.num[1],
+                light.num[2] - point.num[2]
+            ]
             # Pythagoras's theorem.
-            distance = math.sqrt(d_v[0]**2
-                                 + d_v[1]**2
-                                 + d_v[2]**2)
+            distance = math.sqrt(d_v[0]**2 + d_v[1]**2 + d_v[2]**2)
 
             # Check if light illuminates the point at all.
             if distance <= light.radius:
@@ -324,7 +301,6 @@ class Lighting(object):
 
 
 class LineSegment(object):
-
     def __init__(self, start, end, renderer):
         # Define starting and ending points from two 2-tuples.
 
@@ -415,7 +391,6 @@ class LineSegment(object):
 
 
 class Polygon(object):
-
     def __init__(self, points, renderer):
 
         self.points = points
@@ -426,19 +401,18 @@ class Polygon(object):
         returning_lines = []
         for point in range(len(self.points)):
             if point == len(self.points) - 1:
-                returning_lines.append(LineSegment(self.points[point],
-                                                   self.points[0],
-                                                   self.renderer))
+                returning_lines.append(
+                    LineSegment(self.points[point], self.points[0],
+                                self.renderer))
             else:
-                returning_lines.append(LineSegment(self.points[point],
-                                                   self.points[point + 1],
-                                                   self.renderer))
+                returning_lines.append(
+                    LineSegment(self.points[point], self.points[point + 1],
+                                self.renderer))
 
         return returning_lines
 
 
 class SymmetricalPolygon(Polygon):
-
     def __init__(self, vertices, centre, radius, renderer):
         self.vertices = vertices
         self.centre = centre
@@ -478,18 +452,18 @@ class Circle(object):
         y = self.radius
 
         # Algorithm doesn't build maxima, so we do it manually.
-        pointArray.append(Point((self.centre[0],
-                                 self.centre[1] + self.radius,
-                                 0), self.renderer))
-        pointArray.append(Point((self.centre[0],
-                                 self.centre[1] - self.radius,
-                                 0), self.renderer))
-        pointArray.append(Point((self.centre[0] + self.radius,
-                                 self.centre[1],
-                                 0), self.renderer))
-        pointArray.append(Point((self.centre[0] - self.radius,
-                                 self.centre[1],
-                                 0), self.renderer))
+        pointArray.append(
+            Point((self.centre[0], self.centre[1] + self.radius, 0),
+                  self.renderer))
+        pointArray.append(
+            Point((self.centre[0], self.centre[1] - self.radius, 0),
+                  self.renderer))
+        pointArray.append(
+            Point((self.centre[0] + self.radius, self.centre[1], 0),
+                  self.renderer))
+        pointArray.append(
+            Point((self.centre[0] - self.radius, self.centre[1], 0),
+                  self.renderer))
         # Build the rest of the points algorithmically.
         while x < y:
             if f >= 0:
@@ -501,36 +475,35 @@ class Circle(object):
             f += xstep
 
             # Build the current arc.
-            pointArray.append(Point((self.centre[0] + x,
-                                     self.centre[1] + y,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] - x,
-                                     self.centre[1] + y,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] + x,
-                                     self.centre[1] - y,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] - x,
-                                     self.centre[1] - y,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] + y,
-                                     self.centre[1] + x,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] - y,
-                                     self.centre[1] + x,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] + y,
-                                     self.centre[1] - x,
-                                     0), self.renderer))
-            pointArray.append(Point((self.centre[0] - y,
-                                     self.centre[1] - x,
-                                     0), self.renderer))
+            pointArray.append(
+                Point((self.centre[0] + x, self.centre[1] + y, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] - x, self.centre[1] + y, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] + x, self.centre[1] - y, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] - x, self.centre[1] - y, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] + y, self.centre[1] + x, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] - y, self.centre[1] + x, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] + y, self.centre[1] - x, 0),
+                      self.renderer))
+            pointArray.append(
+                Point((self.centre[0] - y, self.centre[1] - x, 0),
+                      self.renderer))
 
         return pointArray
 
 
 class Renderer(object):
-
     def __init__(self, camera):
         # Initialise Pygame.
         # Screen/3D-space dimensions.
@@ -547,11 +520,10 @@ class Renderer(object):
         self.screen = pygame.display.set_mode(self.size)
 
     def render_point(self, location, colour):
-            # Draw a pixel at the Point's coordinates X/Y.
-            colour = (int(colour[0]), int(colour[1]), int(colour[2]))
-            self.screen.set_at((int(location[0]),
-                                int(location[1])),
-                               (colour))  # <-- Colour.
+        # Draw a pixel at the Point's coordinates X/Y.
+        colour = (int(colour[0]), int(colour[1]), int(colour[2]))
+        self.screen.set_at((int(location[0]), int(location[1])),
+                           (colour))  # <-- Colour.
 
     def render_star(self, location, colour):
         # Draw a circle onscreen to represent a point.
@@ -562,10 +534,8 @@ class Renderer(object):
         # (Also pygame crashes if given a negative circle radius.)
         colour = (int(colour[0]), int(colour[1]), int(colour[2]))
         if pointsize > -1:
-            pygame.draw.circle(self.screen,
-                               colour,
-                               (int(location[0]), int(location[1])),
-                               pointsize)
+            pygame.draw.circle(self.screen, colour,
+                               (int(location[0]), int(location[1])), pointsize)
 
     def render_screen(self):
         pygame.display.flip()
@@ -578,8 +548,7 @@ def scale_space(amount, renderer):
     origin = Point((0, 0, 0), renderer)
     # scalePoint is the (arbitrary) point we're scaling relative to.
     # In this case, the centre of the simulated space.
-    scalePoint = Point((renderer.screenWidth / 2,
-                        renderer.screenHeight / 2,
+    scalePoint = Point((renderer.screenWidth / 2, renderer.screenHeight / 2,
                         renderer.desiredDepth / 2), renderer)
 
     for obj in renderer.camera.objectsInWorld:

@@ -1,15 +1,15 @@
 # Pyreframe, a rudimentary 3D engine made in Python for no real reason.
-# By Daniel Rivas, working from various tutorials.
+# By Daniel Rivas.
 
 import sys
 import pygame
 from random import randrange
 
-from engine import (Point, Star, Vector, Camera, LineSegment,
-                    Polygon, SymmetricalPolygon, Circle, Renderer, Lighting)
+from engine import (Point, Star, Vector, Camera, LineSegment, Polygon,
+                    SymmetricalPolygon, Circle, Renderer, Lighting)
 
-from engine import (scale_space, rotate_space, draw_line,
-                    draw_polygon, draw_sympolygon, draw_circle)
+from engine import (scale_space, rotate_space, draw_line, draw_polygon,
+                    draw_sympolygon, draw_circle)
 
 # Screen dimensions.
 screenWidth = 1000
@@ -22,9 +22,8 @@ light2 = Lighting((0, 0, 1000), (0, 0, 255), 1000)
 lights = [light0, light1, light2]
 
 # Define the camera.
-camera = Camera(((-1, screenWidth+1),
-                 (-1, screenHeight+1),
-                 (-1, desiredDepth+1)), lights)
+camera = Camera(((-1, screenWidth + 1), (-1, screenHeight + 1),
+                 (-1, desiredDepth + 1)), lights)
 # Build renderer.
 renderer = Renderer(camera)
 
@@ -66,8 +65,7 @@ def mainloop(renderer):
 
     while 1:
         renderer.render_screen()
-        rotate_space(1,
-                     Point((0, 0, 0), renderer),
+        rotate_space(1, Point((0, 0, 0), renderer),
                      Point((1000, 1000, 1000), renderer), renderer)
 
         for event in pygame.event.get():
@@ -79,10 +77,8 @@ def mainloop(renderer):
                 elif event.key == pygame.K_s:
                     scale_space(2.0, renderer)
                 elif event.key == pygame.K_r:
-                    rotate_space(90,
-                                 Point((0, 0, 0), renderer),
-                                 Point((1000, 1000, 1000), renderer),
-                                 renderer)
+                    rotate_space(90, Point((0, 0, 0), renderer),
+                                 Point((1000, 1000, 1000), renderer), renderer)
 
 
 mainloop(renderer)
