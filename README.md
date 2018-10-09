@@ -4,7 +4,7 @@ Pyreframe is a rudimentary 3D engine made using Python. As such, it's very slow!
 
 ## Usage
 
-Import classes from engine.py, and add light sources and objects as shown in demo.py.
+Import classes from engine.py, and add light sources and objects as shown in main.py.
 
 ## Prerequisites
 
