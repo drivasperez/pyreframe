@@ -1,6 +1,6 @@
 # Pyreframe
 
-Pyreframe is a rudimentary 3D engine made using Python. As such, it's very slow! Points, lines and polygons can be generated, and are dynamically lit. 
+Pyreframe is a rudimentary 3D engine made using Python. As such, it's very slow! Points, lines and polygons can be generated, and are lit dynamically.
 
 ## Usage
 
