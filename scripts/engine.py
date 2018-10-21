@@ -7,10 +7,12 @@ import pygame
 
 class Point(object):
     def __init__(self, coords, renderer):
-        # Define point's XYZ coordinates as three-tuple.
+        """
+        Define point's XYZ coordinates as three-tuple.
         self.num = coords
         self.renderer = renderer
         self.colour = 255, 255, 255
+        """
 
     def addVectorToPoint(self, vals):
         # Add a vector to this point, resulting in a point.
@@ -24,7 +26,10 @@ class Point(object):
         return Point((num1, num2, num3), self.renderer)
 
     def subtractVectorFromPoint(self, vals):
-        # Subtract a vector from this point, resulting in a point.
+        """
+        Subtract a vector from this point, resulting in a point.
+        """
+
         num1, num2, num3 = self.num
         val1, val2, val3 = vals.num
 
@@ -35,7 +40,9 @@ class Point(object):
         return Point((num1, num2, num3), self.renderer)
 
     def subtractPointFromPoint(self, vals):
-        # Construct a vector from this point to another point.
+        """
+        Construct a vector from this point to another point.
+        """
         num1, num2, num3 = self.num
         val1, val2, val3 = vals.num
 
@@ -46,7 +53,9 @@ class Point(object):
         return Vector((num1, num2, num3), self.renderer)
 
     def drawPoint(self, colour):
-        # Use Renderer's function to draw this.
+        """
+        Use Renderer's function to draw this.
+        """
         self.renderer.render_point(self.num, colour)
 
     def setPointToPoint(self, newpos):
@@ -54,21 +63,30 @@ class Point(object):
 
 
 class Star(Point):
-    # Like the Point() class, but rendered using circles to indicate depth.
-    # Makes for a nice visual effect.
+    """
+    Like the Point() class, but rendered using circles to indicate depth.
+    Makes for a nice visual effect.
+    """
+
     def drawPoint(self, colour):
-        # Draw using main rendering technique.
+        """
+        Draw using main rendering technique.
+        """
         self.renderer.render_star(self.num, colour)
 
 
 class Vector(object):
     def __init__(self, coords, renderer):
-        # Define this vector's XYZ position with a three-tuple.
+        """
+        Define this vector's XYZ position with a three-tuple.
+        """
         self.num = (coords)
         self.renderer = renderer
 
     def addVectorToVector(self, vals):
-        # Add a vector to this vector, resulting in a vector.
+        """
+        Add a vector to this vector, resulting in a vector.
+        """
         num1, num2, num3 = self.num
         val1, val2, val3 = vals.num
 
@@ -79,7 +97,9 @@ class Vector(object):
         return Vector((num1, num2, num3), self.renderer)
 
     def subtractVectorFromVector(self, vals):
-        # Subtract a vector from this vector, resulting in a vector.
+        """
+        Subtract a vector from this vector, resulting in a vector.
+        """
         num1, num2, num3 = self.num
         val1, val2, val3 = vals.num
 
@@ -90,8 +110,10 @@ class Vector(object):
         return Vector((num1, num2, num3), self.renderer)
 
     def rotateVectorXY(self, deg):
-        # Rotate this vector along the XY axis.
-        # Convert degrees input to radians.
+        """
+        Rotate this vector along the XY axis.
+        Convert degrees input to radians.
+        """
         rad = math.radians(deg)
         # Rotation matrix for XY, split into 3 tuples for convenience.
         transform1 = (math.cos(rad), -math.sin(rad), 0)
@@ -111,8 +133,10 @@ class Vector(object):
         return Vector((out1, out2, out3), self.renderer)
 
     def rotateVectorXZ(self, deg):
-        # Rotate this vector by the XZ axis.
-        # Convert degrees input to radians.
+        """
+        Rotate this vector by the XZ axis.
+        Convert degrees input to radians.
+        """
         rad = math.radians(deg)
         # Rotation matrix for XZ, split into 3 tuples for convenience.
         transform1 = (math.cos(rad), 0, math.sin(rad))
@@ -132,8 +156,10 @@ class Vector(object):
         return Vector((out1, out2, out3), self.renderer)
 
     def rotateVectorYZ(self, deg):
-        # Rotate this vector by the YZ axis.
-        # Convert degrees input to radians.
+        """
+        Rotate this vector by the YZ axis.
+        Convert degrees input to radians.
+        """
         rad = math.radians(deg)
         # Rotation matrix for YZ, split into 3 tuples for convenience.
         transform1 = (1, 0, 0)
@@ -153,8 +179,10 @@ class Vector(object):
         return Vector((out1, out2, out3), self.renderer)
 
     def rotateVectorByAxis(self, p1, p2, theta):
-        # Rotates a vector around an arbitrary axis.
-        # Translate the space's origin to the axis's origin.
+        """
+        Rotates a vector around an arbitrary axis.
+        Translate the space's origin to the axis's origin.
+        """
         p = (self.num[0] - p1.num[0], self.num[1] - p1.num[1],
              self.num[2] - p1.num[2])
         # Initialise point q, which we will rotate.
@@ -199,7 +227,9 @@ class Vector(object):
         return q
 
     def scaleVector(self, scalePoint, scale):
-        # Scales the vector by an input three-tuple, around an arbitrary point.
+        """
+        Scales the vector by an input three-tuple, around an arbitrary point.
+        """
         num0, num1, num2 = self.num
         # Translate space so the scalePoint lies on the origin.
         p0 = num0 - scalePoint.num[0]
@@ -216,8 +246,10 @@ class Vector(object):
 
 class Camera(object):
     def __init__(self, bounds, lights):
-        # Define minimum and maximum bounds.
-        # Bounds should be a tuple containing three two-tuples.
+        """
+        Define minimum and maximum bounds.
+        Bounds should be a tuple containing three two-tuples.
+        """
         self.minX, self.maxX = bounds[0]
         self.minY, self.maxY = bounds[1]
         self.minZ, self.maxZ = bounds[2]
@@ -227,7 +259,9 @@ class Camera(object):
         self.lights = lights
 
     def drawScene(self):
-        # Draw every object that is within the camera bounds.
+        """
+        Draw every object that is within the camera bounds.
+        """
         objcounter = 0
         # Draw each point that is within bounds.
         for obj in self.objectsInWorld:
@@ -260,8 +294,10 @@ class Camera(object):
                 self.objectsInWorld += new_lines
 
     def checkPointColour(self, point):
-        # Takes a point and decides what colour it should be,
-        # Based on that point's proximity to each light source in the scene.
+        """
+        Takes a point and decides what colour it should be,
+        Based on that point's proximity to each light source in the scene.
+        """
         red = 0
         green = 0
         blue = 0
@@ -290,9 +326,11 @@ class Camera(object):
 
 
 class Lighting(object):
-    """This class represents a light source.
+    """
+    This class represents a light source.
     Place in the scene and it will illuminate any points within its
-    radius, based on the point's distance from the source."""
+    radius, based on the point's distance from the source.
+    """
 
     def __init__(self, num, colour, radius):
         self.num = num
@@ -302,16 +340,19 @@ class Lighting(object):
 
 class LineSegment(object):
     def __init__(self, start, end, renderer):
-        # Define starting and ending points from two 2-tuples.
+        """
+        Define starting and ending points from two 2-tuples.
+        """
 
         self.start = start
         self.end = end
         self.renderer = renderer
 
     def returnPoints(self):
-        # Uses Bresenham's algorithm (3D version) to find the points
-        # between our starting and ending points.
-
+        """
+        Uses Bresenham's algorithm (3D version) to find the points
+        between our starting and ending points.
+        """
         # Empty array for holding our line's points.
         pointArray = []
         # Assign start/end points to variables for ease of use.
@@ -433,15 +474,20 @@ class SymmetricalPolygon(Polygon):
 
 
 class Circle(object):
-    # Draws a circle of arbitrary size and location.
+    """
+    Draws a circle of arbitrary size and location.
+    """
+
     def __init__(self, centre, radius, renderer):
         self.centre = centre
         self.radius = radius
         self.renderer = renderer
 
     def returnPoints(self):
-        # Returns an array of points describing a circle with given centre
-        # and radius.
+        """
+        Returns an array of points describing a circle with given centre
+        and radius.
+        """
         pointArray = []
         # Values needed for the algorithm.
         # f tracks the progress.
@@ -505,8 +551,10 @@ class Circle(object):
 
 class Renderer(object):
     def __init__(self, camera):
-        # Initialise Pygame.
-        # Screen/3D-space dimensions.
+        """
+        Initialise Pygame.
+        Screen/3D-space dimensions.
+        """
         self.camera = camera
         self.screenWidth = self.camera.maxX
         self.screenHeight = self.camera.maxY
@@ -520,14 +568,18 @@ class Renderer(object):
         self.screen = pygame.display.set_mode(self.size)
 
     def render_point(self, location, colour):
-        # Draw a pixel at the Point's coordinates X/Y.
+        """
+        Draw a pixel at the Point's coordinates X/Y.
+        """
         colour = (int(colour[0]), int(colour[1]), int(colour[2]))
         self.screen.set_at((int(location[0]), int(location[1])),
                            (colour))  # <-- Colour.
 
     def render_star(self, location, colour):
-        # Draw a circle onscreen to represent a point.
-        # Z-position represented by circle-size.
+        """
+        Draw a circle onscreen to represent a point.
+        Z-position represented by circle-size.
+        """
         pointsize = 4 - int(10 * (location[2] / self.desiredDepth))
         # Check to see if the point is in front or behind.
         # If it's behind the viewer, don't draw it.
@@ -543,7 +595,9 @@ class Renderer(object):
 
 
 def scale_space(amount, renderer):
-    # Scale every point by the same amount, relative to the origin.
+    """
+    Scale every point by the same amount, relative to the origin.
+    """
     tempVector = Vector((0, 0, 0), renderer)
     origin = Point((0, 0, 0), renderer)
     # scalePoint is the (arbitrary) point we're scaling relative to.
@@ -573,7 +627,9 @@ def scale_space(amount, renderer):
 
 
 def rotate_space(degree, p1, p2, renderer):
-    # Rotate every point by the same amount about an axis.
+    """
+    Rotate every point by the same amount about an axis.
+    """
     tempVector = Vector((0, 0, 0), renderer)
     tempVector1 = Vector((0, 0, 0), renderer)
     tempVector2 = Vector((0, 0, 0), renderer)
@@ -597,21 +653,27 @@ def rotate_space(degree, p1, p2, renderer):
 
 
 def draw_line(start, end, renderer):
-    # Generate a line of points between two Points.
+    """
+    Generate a line of points between two Points.
+    """
     myLine = LineSegment(start, end, renderer)
     renderer.camera.objectsInWorld.append(myLine)
     renderer.camera.drawScene()
 
 
 def draw_polygon(points, renderer):
-    # Generate a polygon from arbitrary number of Points.
+    """
+    Generate a polygon from arbitrary number of Points.
+    """
     myPolygon = Polygon(points, renderer)
     renderer.camera.objectsInWorld += myPolygon.returnLines()
     renderer.camera.drawScene()
 
 
 def draw_sympolygon(vertices, centre, radius, renderer):
-    # Auto-generate a symmetrical polygon.
+    """
+    Auto-generate a symmetrical polygon.
+    """
     myPolygon = SymmetricalPolygon(vertices, centre, radius, renderer)
     renderer.camera.objectsInWorld += myPolygon.returnLines()
     renderer.camera.drawScene()

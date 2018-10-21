@@ -29,7 +29,9 @@ renderer = Renderer(camera)
 
 
 def draw_starfield(renderer):
-    # Generate 250 random stars.
+    """
+    Generate 250 random stars.
+    """
     for point in range(250):
         renderer.camera.objectsInWorld.append(
             Star((randrange(0, renderer.screenWidth),
@@ -39,7 +41,9 @@ def draw_starfield(renderer):
 
 
 def draw_pointfield(renderer):
-    # Generate 250 random points.
+    """
+    Generate 250 random points.
+    """
     for point in range(250):
         renderer.camera.objectsInWorld.append(
             Point((randrange(0, renderer.screenWidth),
@@ -52,14 +56,15 @@ def add_content():
 
     draw_sympolygon(4, Point((500, 500, 100), renderer), 75, renderer)
     draw_sympolygon(4, Point((500, 500, 175), renderer), 75, renderer)
-    # draw_circle((500, 500), 50, renderer)
 
     draw_starfield(renderer)
     draw_pointfield(renderer)
 
 
 def mainloop(renderer):
-    # Main "game" loop.
+    """
+    Main "game" loop.
+    """
     print("Press a to scale scene down, s to scale scene up, and r to rotate.")
     add_content()
 
